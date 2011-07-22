@@ -1,4 +1,6 @@
 class ReasonsController < ApplicationController
+  before_filter :authenticate_user! , :except => [ :show, :index ]
+  
   # GET /reasons
   # GET /reasons.xml
   def index

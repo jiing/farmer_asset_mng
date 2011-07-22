@@ -1,4 +1,5 @@
 class BorrowersController < ApplicationController
+  before_filter :authenticate_user! , :except => [ :show, :index ]
   # GET /borrowers
   # GET /borrowers.xml
   def index

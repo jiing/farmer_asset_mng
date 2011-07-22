@@ -1,8 +1,8 @@
-<h1>Listing reasons</h1>
+<h1>調閱原因列表</h1>
 
 <table>
   <tr>
-    <th>Content</th>
+    <th>內容</th>
     <th></th>
     <th></th>
     <th></th>
@@ -11,13 +11,15 @@
 <% @reasons.each do |reason| %>
   <tr>
     <td><%= reason.content %></td>
-    <td><%= link_to 'Show', reason %></td>
-    <td><%= link_to 'Edit', edit_reason_path(reason) %></td>
-    <td><%= link_to 'Destroy', reason, :confirm => 'Are you sure?', :method => :delete %></td>
+  <% if current_user && current_user.is_admin %>
+    <td><%= link_to '編輯', edit_reason_path(reason) %></td>
+    <td><%= link_to '刪除', reason, :confirm => 'Are you sure?', :method => :delete %></td>
+  <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Reason', new_reason_path %>
+<%= link_to '新增調閱原因', new_reason_path %> |
+<%= link_to '回到申請書列表', requisitions_path %>

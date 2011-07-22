@@ -1,8 +1,8 @@
-<h1>Listing categories</h1>
+<h1>分類列表</h1>
 
 <table>
   <tr>
-    <th>Name</th>
+    <th>分類名稱</th>
     <th></th>
     <th></th>
     <th></th>
@@ -11,13 +11,14 @@
 <% @categories.each do |category| %>
   <tr>
     <td><%= category.name %></td>
-    <td><%= link_to 'Show', category %></td>
-    <td><%= link_to 'Edit', edit_category_path(category) %></td>
-    <td><%= link_to 'Destroy', category, :confirm => 'Are you sure?', :method => :delete %></td>
+   <% if current_user && current_user.is_admin %> 
+    <td><%= link_to '編輯', edit_category_path(category) %></td>
+    <td><%= link_to '刪除', category, :confirm => 'Are you sure?', :method => :delete %></td>
+   <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Category', new_category_path %>
+<%= link_to '新增分類', new_category_path %>

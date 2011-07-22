@@ -1,4 +1,4 @@
-<h1>Listing borrowers</h1>
+<h1>借閱人清單</h1>
 
 <table>
   <tr>
@@ -11,13 +11,14 @@
 <% @borrowers.each do |borrower| %>
   <tr>
     <td><%= borrower.name %></td>
-    <td><%= link_to 'Show', borrower %></td>
-    <td><%= link_to 'Edit', edit_borrower_path(borrower) %></td>
-    <td><%= link_to 'Destroy', borrower, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if current_user && current_user.is_admin %>
+      <td><%= link_to '編輯', edit_borrower_path(borrower) %></td>
+      <td><%= link_to '刪除', borrower, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Borrower', new_borrower_path %>
+<%= link_to '新增借閱人', new_borrower_path %>
