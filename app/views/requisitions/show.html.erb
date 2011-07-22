@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>申請書編號:</b>
+  <%= @requisition.req_id %>
+</p>
+
+<p>
+  <b>戶名:</b>
+  <%= @requisition.account_name %>
+</p>
+
+<p>
+  <b>調閱日:</b>
+  <%= @requisition.borrowed_at %>
+</p>
+
+<p>
+  <b>調閱原因:</b>
+  <%= @requisition.reason.content %>
+</p>
+
+<p>
+  <b>調閱人:</b>
+  <%= @requisition.user.name %>
+</p>
+<p>
+  <b>分類:</b>
+  <%= @requisition.category.name %>
+</p>
+
+<p>
+  <b>是否調閱中:</b>
+  <%= @requisition.is_borrowed %>
+</p>
+<p>
+  <b>備註:</b>
+  <%= @requisition.note %>
+</p>
+
+<%= link_to 'Edit', edit_requisition_path(@requisition) %> |
+<%= link_to 'Back', requisitions_path %>

@@ -1,0 +1,56 @@
+<%= form_for(@requisition) do |f| %>
+  <% if @requisition.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@requisition.errors.count, "error") %> prohibited this requisition from being saved:</h2>
+
+      <ul>
+      <% @requisition.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :req_id, '申請書編號' %><br />
+    <%= f.text_field :req_id %>
+  </div>
+  <div class="field">
+    <%= f.label :account_name, '戶名' %><br />
+    <%= f.text_field :account_name %>
+  </div>
+  <div class="field">
+    <%= f.label :borrowed_at, '調閱日期' %><br />
+    <%= f.datetime_select :borrowed_at %>
+  </div>
+  <div class="field">
+    <%= f.label :reason_id, '調閱原因' %><br />
+    
+    <%= select("requisition", "reason_id", Reason.all.collect {|r| [ r.content, r.id ] }, { :include_blank => true }) %>
+	
+  </div>
+  <div class="field">
+    <%= f.label :user_id, '調閱人' %><br />
+    <select id="user_id", name="requisition[user_id]">
+	  <%= options_from_collection_for_select(User.all, :id, :name, @selected)  %>
+	</select>
+  </div>
+  <div class="field">
+    <%= f.label :category_id, '分類' %><br />
+    <select id="category_id", name="requisition[category_id]">
+      <%= options_from_collection_for_select(Category.all, :id, :name, @selected)  %>
+    </select>
+  </div>
+  <div class="field">
+    <%= f.label :is_borrowed,'調閱中?(打勾代表調閱中)' %>
+    <%= f.check_box :is_borrowed %>
+  </div>
+  <div class="field">
+    <%= f.label :note,'備註' %><br />
+    <%= f.text_area :note %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

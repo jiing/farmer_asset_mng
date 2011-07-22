@@ -1,0 +1,23 @@
+<h1>Listing reasons</h1>
+
+<table>
+  <tr>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @reasons.each do |reason| %>
+  <tr>
+    <td><%= reason.content %></td>
+    <td><%= link_to 'Show', reason %></td>
+    <td><%= link_to 'Edit', edit_reason_path(reason) %></td>
+    <td><%= link_to 'Destroy', reason, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Reason', new_reason_path %>
