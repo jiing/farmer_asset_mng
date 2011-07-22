@@ -10,6 +10,7 @@
     <th>分類</th>
     <th>是否調閱中</th>
     <th>備註</th>
+    <th>時間戳記</th>
     <th></th>
     <th></th>
     <th></th>
@@ -25,6 +26,7 @@
     <td><%= requisition.category.name %></td>
     <td><%= requisition.is_borrowed %></td>
     <td><%= requisition.note %></td>
+    <td><%= l(requisition.updated_at, :format=>:short) %></td>
 
     <td><%= link_to '顯示', requisition %></td>
     <td><%= link_to '編輯', edit_requisition_path(requisition) %></td>

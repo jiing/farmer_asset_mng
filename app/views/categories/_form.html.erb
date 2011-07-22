@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :分類名稱 %><br />
+    <%= f.label :分類名稱 %><%= mark_required(@category, :name) %><br />
     <%= f.text_field :name %>
   </div>
   <div class="actions">

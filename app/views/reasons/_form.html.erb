@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :內容 %><br />
+    <%= f.label :內容 %><%= mark_required(@reason, :content) %><br />
     <%= f.text_field :content %>
   </div>
   <div class="actions">
