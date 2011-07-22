@@ -21,7 +21,7 @@
     <td><%= requisition.account_name %></td>
     <td><%= l(requisition.borrowed_at, :format=>:short) %></td>
     <td><%= requisition.reason.content %></td>
-    <td><%= requisition.user.name %></td>
+    <td><%= requisition.borrower.name %></td>
     <td><%= requisition.category.name %></td>
     <td><%= requisition.is_borrowed %></td>
     <td><%= requisition.note %></td>

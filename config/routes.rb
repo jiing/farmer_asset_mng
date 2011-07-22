@@ -1,11 +1,13 @@
 FarmerAssetMng::Application.routes.draw do
+  devise_for :users
+
+  resources :borrowers
+
   resources :categories
 
   resources :reasons
 
   resources :requisitions
-
-  resources :users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

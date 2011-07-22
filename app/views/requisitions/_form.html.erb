@@ -30,9 +30,9 @@
 	
   </div>
   <div class="field">
-    <%= f.label :user_id, '調閱人' %><br />
-    <select id="user_id", name="requisition[user_id]">
-	  <%= options_from_collection_for_select(User.all, :id, :name, @selected)  %>
+    <%= f.label :borrower_id, '調閱人' %><br />
+    <select id="user_id", name="requisition[borrower_id]">
+	  <%= options_from_collection_for_select(Borrower.all, :id, :name, @selected)  %>
 	</select>
   </div>
   <div class="field">
