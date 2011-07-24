@@ -1,12 +1,10 @@
-<h1>申請書清單，目前共有<%= Requisition.all.size %>件</h1>
-<h2>申請書清單查詢結果，目前本頁共有<%= @requisitions.size %>件</h2>
-<% debug params %>
+<h3>申請書清單查詢結果，目前本頁有<%= @requisitions.size %> 件</h3>
 <div id="search">
 	<%= form_tag (requisitions_path, :method=>'get') do -%>
 
 	<%= text_field_tag 'query[req_id]', nil, :placeholder => '申請書編號...', :maxlength => 11, :size => 16 %>
 	
-	<%= label_tag 'date', '調閱月份'%>
+	<%= label_tag 'date', '調閱年月'%>
 	<%= select_date(my_date = Date.current, :order => [:year, :month], :include_blank => true , :prefix => 'query[borrowed_at]' ) %>
 
 	<%= label_tag 'reason', '調閱原因'%>
@@ -18,36 +16,37 @@
 	<%= label_tag 'category', '分類'%>
 	<%= select("query","category", Category.all.collect{|c| [c.name, c.id] }, {:include_blank=>true}) %>
 
-	<%= submit_tag 'Query' %>
+	<%= submit_tag '查詢' %>
 	<% end -%>
 </div>	
 <br/>
 <div id="result table">
-<table>
+<table class="table">
   <tr>
-    <th>申請書編號</th>
-    <th>戶名</th>
-    <th>調閱日</th>
-    <th>調閱原因</th>
-    <th>調閱人</th>
-    <th>分類</th>
-    <th>調閱中?</th>
-    <th>備註</th>
-    <th>時間戳記</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th class="first">申請書編號</th>
+    <th class="first">戶名</th>
+    <th class="first">調閱日</th>
+    <th class="first">調閱原因</th>
+    <th class="first">調閱人</th>
+    <th class="first">分類</th>
+    <th class="first">調閱中?</th>
+    <th class="first">備註</th>
+    <th class="first">時間戳記</th>
+    <th class="first"></th>
+    <th class="first"></th>
   </tr>
 
+<% i = 0 %> 
 <% @requisitions.each do |requisition| %>
-  <tr>
-    <td><%= requisition.req_id %></td>
-    <td><%= requisition.account_name %></td>
-    <td><%= requisition.borrowed_at.strftime('%Y/%m/%d') %></td>
-    <td><%= requisition.reason.content %></td>
-    <td><%= requisition.borrower.name %></td>
-    <td><%= requisition.category.name %></td>
-    <td><%= check_box_tag "requisition[is_borrowed]", requisition.is_borrowed, requisition.is_borrowed, :readonly=> true %></td>
+<% i+=1 %> 
+  <tr <%= 'class="td"' if i%2 == 0 %> >
+    <td nowrap="nowrap"><%= requisition.req_id %></td>
+    <td nowrap="nowrap"><%= requisition.account_name %></td>
+    <td nowrap="nowrap"><%= requisition.borrowed_at.strftime('%Y/%m/%d') %></td>
+    <td nowrap="nowrap"><%= requisition.reason.content %></td>
+    <td nowrap="nowrap"><%= requisition.borrower.name %></td>
+    <td nowrap="nowrap"><%= requisition.category.name %></td>
+    <td><%= check_box_tag "requisition[is_borrowed]", requisition.is_borrowed, requisition.is_borrowed, :readonly=> true, :class=>"checkbox" %></td>
     <td><%= requisition.note %></td>
     <td><%= requisition.updated_at.strftime('%Y/%m/%d %l:%M%p') %></td>
     <% if current_user && current_user.is_admin %>
@@ -63,4 +62,3 @@
 <% if current_user && current_user.is_admin %> 
   <%= link_to '新增申請書', new_requisition_path %>
 <% end %>
-<%= link_to '列出所有申請書', requisitions_path %>

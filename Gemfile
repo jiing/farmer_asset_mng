@@ -41,4 +41,5 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 group :development, :test do
   gem 'rspec-rails'
   gem 'rails-erd'
+  gem 'web-app-theme', '>= 0.6.2'
 end

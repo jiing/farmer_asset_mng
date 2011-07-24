@@ -6,11 +6,25 @@ class Requisition < ActiveRecord::Base
   validates_presence_of :account_name
   
   #kaminari
-  paginates_per 20
+  paginates_per 10
   
   default_scope :order=>'req_id ASC'
-  scope :in_stock, where(:is_borrowed=>false)
- 
+  scope :in_stock, lambda{ 
+      where("requisitions.is_borrowed = ? AND requisitions.reason_id > ?" ,false, 1) 
+     }
+  scope :not_in_stock, lambda{
+     where("requisitions.is_borrowed = ? AND requisitions.reason_id >?", true, 1)
+  }
+  scope :money_returned, lambda{ 
+      where("requisitions.category_id = ? AND requisitions.reason_id > ?",1, 1)
+    }
+  scope :money_not_returned, lambda{ 
+    where("requisitions.category_id = ? AND requisitions.reason_id > ?", 2, 1)  
+  }
   
-  
+  scope :mark_as_cleared, where(:reason_id=> 1)
+  scope :mark_as_not_cleared, lambda{
+    where("requisitions.reason_id > ?", 1)  
+  }
+
 end

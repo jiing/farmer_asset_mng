@@ -1,12 +1,10 @@
-<div class="user_navigation">
 <% if user_signed_in? %>
-您好! <%= current_user.email %>
-<%= link_to("登出", destroy_user_session_path, :method=>'delete')%>
+<li> 您好! <%= current_user.email %></li>
+   <li><%= link_to("登出", destroy_user_session_path, :method=>'delete', :class=>'logout')%></li>
   <% if current_user.is_admin? %>
-    <%= link_to("管理介面", {:controller=>"admin", :action=>"index"} )%>
+  <li><%= link_to("管理介面", {:controller=>"admin", :action=>"index"} )%></li>
   <% end %>
 <% else %>
-<%= link_to "登入", new_user_session_path %>
-<%= link_to "註冊", new_user_registration_path %>
+<li><%= link_to "登入", new_user_session_path, :class=>'login' %></li>
+<li><%= link_to "註冊", new_user_registration_path %></li>
 <% end %>
-</div>

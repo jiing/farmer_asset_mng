@@ -3,7 +3,7 @@ class RequisitionsController < ApplicationController
   # GET  /requisitions
   # GET /requisitions.xml
   def index
-    @requisitions = Requisition.order(:req_id).page params[:page]
+    @requisitions = Requisition.order(:req_id).mark_as_not_cleared.page params[:page]
 
     unless params[:query].nil? 
       date_in_where='';
@@ -29,12 +29,12 @@ class RequisitionsController < ApplicationController
         ( params[:query][:category].blank?) ? ( '%' ):  ('%'+ params[:query][:category]+'%')]
         ).page params[:page]
       end
-    
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @requisitions }
+
+      respond_to do |format|
+        format.html # index.html.erb
+        format.xml  { render :xml => @requisitions }
+      end
     end
-  end
 
   # GET /requisitions/1
   # GET /requisitions/1.xml
@@ -115,7 +115,28 @@ class RequisitionsController < ApplicationController
     end
   end 
   
-  def query
+  def not_in_stock
+     @requisitions = Requisition.not_in_stock
+  end
+  
+  def money_returned
+      @requisitions = Requisition.money_returned
+  end
+  
+  def money_not_returned
+    @requisitions = Requisition.money_not_returned    
+  end
+  
+  def mark_as_cleared
+    @requisitions = Requisition.mark_as_cleared 
+  end
+  
+  def mark_as_not_cleared
+      @requisitions = Requisition.mark_as_not_cleared 
+  end
+  
+  def all
+     @requisitions = Requisition.all
   end
   
 end

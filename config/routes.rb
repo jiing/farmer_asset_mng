@@ -1,6 +1,12 @@
 FarmerAssetMng::Application.routes.draw do
   get "admin/index"
   get "requisitions/in_stock"
+  get "requisitions/not_in_stock"
+  get "requisitions/money_returned"
+  get "requisitions/money_not_returned"
+  get "requisitions/mark_as_cleared"
+  get "requisitions/mark_as_not_cleared"
+  get "requisitions/all"
   
   devise_for :users
 

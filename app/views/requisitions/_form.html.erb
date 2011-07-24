@@ -31,7 +31,7 @@
   </div>
   <div class="field">
     <%= f.label :borrower_id, '調閱人' %><%= mark_required(@requisition, :borrower_id) %><br />
-    <select id="user_id", name="requisition[borrower_id]">
+    <select id="borrower_id", name="requisition[borrower_id]">
 	  <%= options_from_collection_for_select(Borrower.all, :id, :name, @selected)  %>
 	</select>
   </div>

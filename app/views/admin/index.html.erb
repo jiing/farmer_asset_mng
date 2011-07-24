@@ -3,4 +3,10 @@
 <%= link_to '設定分類', categories_path %> |
 <%= link_to '設定調閱人', borrowers_path %> |
 <%= link_to '申請書清單', requisitions_path %> |
-<%= link_to '申請書庫存清單', requisitions_in_stock_path %> |
+<%= link_to '申請書庫存明細', requisitions_in_stock_path %> |
+<%= link_to '申請書調閱中未歸檔明細', requisitions_not_in_stock_path %> |
+<%= link_to '已清償申請書明細', requisitions_money_returned_path %> |
+<%= link_to '貸放中申請書明細', requisitions_money_not_returned_path %> |
+<%= link_to '案卷清冊', requisitions_mark_as_not_cleared_path %> |
+<%= link_to '案卷清冊(含已塗銷)', requisitions_all_path %> |
+<%= link_to '已銷案清冊', requisitions_mark_as_cleared_path %> 
