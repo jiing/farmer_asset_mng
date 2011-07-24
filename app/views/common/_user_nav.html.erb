@@ -3,7 +3,7 @@
 您好! <%= current_user.email %>
 <%= link_to("登出", destroy_user_session_path, :method=>'delete')%>
   <% if current_user.is_admin? %>
-    <%= link_to("管理員介面", {:controller=>"admin", :action=>"index"} )%>
+    <%= link_to("管理介面", {:controller=>"admin", :action=>"index"} )%>
   <% end %>
 <% else %>
 <%= link_to "登入", new_user_session_path %>

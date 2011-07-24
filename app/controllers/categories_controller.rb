@@ -1,5 +1,4 @@
 class CategoriesController < ApplicationController
-  before_filter :authenticate_user! , :except => [ :show, :index ]
   # GET /categories
   # GET /categories.xml
   def index

@@ -1,5 +1,28 @@
-<h1>申請書列表，目前有<%= Requisition.all.length %>件</h1>
+<h1>申請書清單，目前共有<%= Requisition.all.size %>件</h1>
+<h2>申請書清單查詢結果，目前本頁共有<%= @requisitions.size %>件</h2>
 
+<div id="search">
+	<%= form_tag (requisitions_path, :method=>'get') do -%>
+
+	<%= text_field_tag 'query[req_id]', nil, :placeholder => '申請書編號...', :maxlength => 11, :size => 16 %>
+	
+	<%= label_tag 'date', '調閱日期'%>
+	<%= select_date(my_date = Date.current, :order => [:year, :month], :include_blank => true , :prefix => 'query[borrowed_at]' ) %>
+
+	<%= label_tag 'reason', '調閱原因'%>
+	<%= select("query","reason", Reason.all.collect{|r| [r.content, r.id] }, {:include_blank=>true}) %>
+
+	<%= label_tag 'borrower', '調閱人'%>
+	<%= select("query","borrower", Borrower.all.collect{|b| [b.name, b.id] }, {:include_blank=>true}) %>
+
+	<%= label_tag 'category', '分類'%>
+	<%= select("query","category", Category.all.collect{|c| [c.name, c.id] }, {:include_blank=>true}) %>
+
+	<%= submit_tag 'Query' %>
+	<% end -%>
+</div>	
+<br/>
+<div id="result table">
 <table>
   <tr>
     <th>申請書編號</th>
@@ -8,7 +31,7 @@
     <th>調閱原因</th>
     <th>調閱人</th>
     <th>分類</th>
-    <th>是否調閱中</th>
+    <th>調閱中?</th>
     <th>備註</th>
     <th>時間戳記</th>
     <th></th>
@@ -20,21 +43,21 @@
   <tr>
     <td><%= requisition.req_id %></td>
     <td><%= requisition.account_name %></td>
-    <td><%= l(requisition.borrowed_at, :format=>:short) %></td>
+    <td><%= requisition.borrowed_at.strftime('%Y/%m/%d') %></td>
     <td><%= requisition.reason.content %></td>
     <td><%= requisition.borrower.name %></td>
     <td><%= requisition.category.name %></td>
-    <td><%= requisition.is_borrowed %></td>
+    <td><%= check_box_tag "requisition[is_borrowed]", requisition.is_borrowed, requisition.is_borrowed, :readonly=> true %></td>
     <td><%= requisition.note %></td>
-    <td><%= l(requisition.updated_at, :format=>:short) %></td>
-
-    <td><%= link_to '顯示', requisition %></td>
+    <td><%= requisition.updated_at.strftime('%Y/%m/%d') %></td>
     <td><%= link_to '編輯', edit_requisition_path(requisition) %></td>
     <td><%= link_to '刪除', requisition, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
-
+<%= paginate @requisitions %>
+</div>
 <br />
 
 <%= link_to '新增申請書', new_requisition_path %>
+<%= link_to '列出所有申請書', requisitions_path %>

@@ -1,5 +1,4 @@
 class BorrowersController < ApplicationController
-  before_filter :authenticate_user! , :except => [ :show, :index ]
   # GET /borrowers
   # GET /borrowers.xml
   def index
@@ -15,7 +14,8 @@ class BorrowersController < ApplicationController
   # GET /borrowers/1.xml
   def show
     @borrower = Borrower.find(params[:id])
-
+    @requisitions = @borrower.requisitions 
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @borrower }
@@ -82,3 +82,4 @@ class BorrowersController < ApplicationController
     end
   end
 end
+

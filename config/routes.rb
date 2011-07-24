@@ -1,6 +1,7 @@
 FarmerAssetMng::Application.routes.draw do
   get "admin/index"
-
+  get "requisitions/in_stock"
+  
   devise_for :users
 
   resources :borrowers

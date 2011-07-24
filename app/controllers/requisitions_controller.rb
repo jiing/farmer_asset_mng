@@ -1,10 +1,35 @@
 class RequisitionsController < ApplicationController
-  before_filter :authenticate_user! , :except => [ :show, :index ]
-  # GET /requisitions
+  before_filter :authenticate_user! 
+  # GET  /requisitions
   # GET /requisitions.xml
   def index
-    @requisitions = Requisition.all
+    @requisitions = Requisition.order(:req_id).page params[:page]
 
+    unless params[:query].nil? 
+      date_in_where='';
+      if  ( params[:query][:borrowed_at][:year].blank? )                
+        if ( params[:query][:borrowed_at][:month].blank?)
+          date_in_where = "%"
+        else
+          date_in_where = '%-'+ sprintf("%02d",params[:query][:borrowed_at][:month])+'%'
+        end
+      else
+        if ( params[:query][:borrowed_at][:month].blank?)
+          date_in_where = '%'+params[:query][:borrowed_at][:year] +'-%'
+        else
+          date_in_where = '%'+params[:query][:borrowed_at][:year]+'-'+sprintf("%02d",params[:query][:borrowed_at][:month])+'%'
+        end
+      end    
+
+      @requisitions = Requisition.where(["req_id like ? AND borrowed_at like ? AND reason_id like ? AND borrower_id like ? AND category_id like ?",
+        ( params[:query][:req_id].blank?) ? ( '%' ):  ('%'+ params[:query][:req_id]+'%') ,
+        date_in_where,
+        ( params[:query][:reason].blank?) ? ( '%' ):  ('%'+ params[:query][:reason]+'%'),
+        ( params[:query][:borrower].blank?) ? ( '%' ):  ('%'+ params[:query][:borrower]+'%'),
+        ( params[:query][:category].blank?) ? ( '%' ):  ('%'+ params[:query][:category]+'%')]
+        ).page params[:page]
+      end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @requisitions }
@@ -81,4 +106,16 @@ class RequisitionsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def in_stock
+    @requisitions = Requisition.in_stock
+    respond_to do |format|
+      format.html # in_stock.html.erb
+      format.xml  { render :xml => @requisition }
+    end
+  end 
+  
+  def query
+  end
+  
 end

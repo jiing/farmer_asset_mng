@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :borrowed_at, '調閱日期' %><%= mark_required(@requisition, :borrowed_at) %><br />
-    <%= f.datetime_select :borrowed_at %>
+    <%= f.date_select :borrowed_at %>
   </div>
   <div class="field">
     <%= f.label :reason_id, '調閱原因' %><%= mark_required(@requisition, :reason_id) %><br />
