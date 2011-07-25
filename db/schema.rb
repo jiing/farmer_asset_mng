@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110722110349) do
+ActiveRecord::Schema.define(:version => 20110725051301) do
 
   create_table "borrowers", :force => true do |t|
     t.string   "name"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(:version => 20110722110349) do
     t.datetime "updated_at"
   end
 
-  add_index "requisitions", ["req_id"], :name => "index_requisitions_on_req_id"
+  add_index "requisitions", ["req_id"], :name => "index_requisitions_on_req_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",    :null => false

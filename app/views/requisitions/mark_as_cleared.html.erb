@@ -25,7 +25,7 @@
     <td nowrap="nowrap"><%= requisition.category.name %></td>
     <td><%= check_box_tag "requisition[is_borrowed]", requisition.is_borrowed, requisition.is_borrowed, :readonly=> true %></td>
     <td><%= requisition.note %></td>
-    <td><%= requisition.updated_at.strftime('%Y/%m/%d') %></td>
+    <td><%= requisition.updated_at.strftime('%Y/%m/%d %l:%M%p') %></td>
 
     <td><%= link_to '編輯', edit_requisition_path(requisition) %></td>
     <td><%= link_to '刪除', requisition, :confirm => 'Are you sure?', :method => :delete %></td>

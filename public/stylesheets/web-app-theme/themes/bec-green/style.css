@@ -225,8 +225,10 @@ ul.list li .left  {
   padding: 5px 5px;
 }
 
-#footer .block{
+div#footer div.block p{
 	vertical-align: middle;
+	text-align: right;
+	
 }
 
 /* box */

@@ -3,8 +3,6 @@ class RequisitionsController < ApplicationController
   # GET  /requisitions
   # GET /requisitions.xml
   def index
-    @requisitions = Requisition.order(:req_id).mark_as_not_cleared.page params[:page]
-
     unless params[:query].nil? 
       date_in_where='';
       if  ( params[:query][:borrowed_at][:year].blank? )                
@@ -28,6 +26,8 @@ class RequisitionsController < ApplicationController
         ( params[:query][:borrower].blank?) ? ( '%' ):  ('%'+ params[:query][:borrower]+'%'),
         ( params[:query][:category].blank?) ? ( '%' ):  ('%'+ params[:query][:category]+'%')]
         ).page params[:page]
+      else
+        @requisitions = Requisition.order(:req_id).mark_as_not_cleared.page params[:page]        
       end
 
       respond_to do |format|

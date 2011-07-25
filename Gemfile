@@ -13,6 +13,7 @@ gem 'devise'
 gem 'kaminari'
 gem 'factory_girl'
 gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'heroku'
 
 
 # Use unicorn as the web server
