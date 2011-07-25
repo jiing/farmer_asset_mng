@@ -1,6 +1,6 @@
 <h3>申請書清單查詢結果，目前本頁有<%= @requisitions.size %> 件</h3>
 <div id="search">
-	<%= form_tag (requisitions_path, :method=>'get') do %>
+	<%= form_tag requisitions_path, :method=>:get do %>
 
 	<%= text_field_tag 'query[req_id]', nil, :placeholder => '申請書編號...', :maxlength => 11, :size => 16 %>
 	
