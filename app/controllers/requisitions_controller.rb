@@ -3,7 +3,6 @@ class RequisitionsController < ApplicationController
   # GET  /requisitions
   # GET /requisitions.xml
   def index   
-
     unless params[:query].blank?
       date = DateTime.now;
       unless params[:query][:year].blank? 
@@ -19,21 +18,41 @@ class RequisitionsController < ApplicationController
           date = DateTime.now
         end     
       end
-      
-      @requisitions = Requisition.where(["req_id like ? AND borrowed_at <= ? AND reason_id like ? AND borrower_id like ? AND category_id like ?",
-        ( params[:query][:req_id].blank?) ? ( '%' ):  ('%'+ params[:query][:req_id]+'%') ,
-        date,
-        ( params[:query][:reason].blank?) ? ( '%' ):  ('%'+ params[:query][:reason]+'%'),
-        ( params[:query][:borrower].blank?) ? ( '%' ):  ('%'+ params[:query][:borrower]+'%'),
-        ( params[:query][:category].blank?) ? ( '%' ):  ('%'+ params[:query][:category]+'%')] )
-        @requisitions_count1 = @requisitions.count
-        @requisitions = @requisitions.page params[:page]
-      else
-        @requisitions = Requisition.mark_as_not_cleared
-         @requisitions_count1 = @requisitions.count
-         @requisitions = @requisitions.page params[:page]
+
+      conditions =[]
+      parameters =[]
+      conditions << "borrowed_at <= ?"
+      parameters << date
+
+      unless params[:query][:req_id].blank?
+        conditions << "req_id like ?"
+        parameters << '%'+params[:query][:req_id]+'%'
       end
-    
+
+      unless params[:query][:reason].blank?
+        conditions << "reason_id = ?"
+        parameters << params[:query][:reason]
+      end
+
+      unless params[:query][:borrower].blank?
+        conditions << "borrower_id = ?"
+        parameters << params[:query][:borrower]
+      end  
+      unless params[:query][:category].blank?
+        conditions << "category_id = ?"
+        parameters << params[:query][:category]
+      end
+
+      conditions = [ conditions.join(" AND ") , *parameters ]
+
+      @requisitions = Requisition.where(conditions )
+      @requisitions_count1 = @requisitions.count
+      @requisitions = @requisitions.page params[:page]
+    else
+      @requisitions = Requisition.mark_as_not_cleared
+      @requisitions_count1 = @requisitions.count
+      @requisitions = @requisitions.page params[:page]
+    end
 
     respond_to do |format|
       format.html # index.html.erb
