@@ -2,39 +2,44 @@ class RequisitionsController < ApplicationController
   before_filter :authenticate_user! 
   # GET  /requisitions
   # GET /requisitions.xml
-  def index
-    unless params[:query].nil? 
-      date_in_where='';
-      if  ( params[:query][:borrowed_at][:year].blank? )                
-        if ( params[:query][:borrowed_at][:month].blank?)
-          date_in_where = "%"
-        else
-          date_in_where = '%-'+ sprintf("%02d",params[:query][:borrowed_at][:month])+'%'
-        end
-      else
-        if ( params[:query][:borrowed_at][:month].blank?)
-          date_in_where = '%'+params[:query][:borrowed_at][:year] +'-%'
-        else
-          date_in_where = '%'+params[:query][:borrowed_at][:year]+'-'+sprintf("%02d",params[:query][:borrowed_at][:month])+'%'
-        end
-      end    
+  def index   
 
-      @requisitions = Requisition.where(["req_id like ? AND borrowed_at like ? AND reason_id like ? AND borrower_id like ? AND category_id like ?",
+    unless params[:query].blank?
+      date = DateTime.now;
+      unless params[:query][:year].blank? 
+        unless params[:query][:month] .blank?
+          date = DateTime.parse(params[:query][:year]+'-'+params[:query][:month]+'-'+"1")      
+        else
+          date = DateTime.parse(params[:query][:year]+'-'+"12"+'-'+"1")
+        end
+      else   
+        unless params[:query][:month].blank? 
+          date = DateTime.parse(DateTime.now.year+'-'+params[:query][:month]+'-'+"1")      
+        else
+          date = DateTime.now
+        end     
+      end
+      
+      @requisitions = Requisition.where(["req_id like ? AND borrowed_at <= ? AND reason_id like ? AND borrower_id like ? AND category_id like ?",
         ( params[:query][:req_id].blank?) ? ( '%' ):  ('%'+ params[:query][:req_id]+'%') ,
-        date_in_where,
+        date,
         ( params[:query][:reason].blank?) ? ( '%' ):  ('%'+ params[:query][:reason]+'%'),
         ( params[:query][:borrower].blank?) ? ( '%' ):  ('%'+ params[:query][:borrower]+'%'),
-        ( params[:query][:category].blank?) ? ( '%' ):  ('%'+ params[:query][:category]+'%')]
-        ).page params[:page]
+        ( params[:query][:category].blank?) ? ( '%' ):  ('%'+ params[:query][:category]+'%')] )
+        @requisitions_count1 = @requisitions.count
+        @requisitions = @requisitions.page params[:page]
       else
-        @requisitions = Requisition.order(:req_id).mark_as_not_cleared.page params[:page]        
+        @requisitions = Requisition.mark_as_not_cleared
+         @requisitions_count1 = @requisitions.count
+         @requisitions = @requisitions.page params[:page]
       end
+    
 
-      respond_to do |format|
-        format.html # index.html.erb
-        format.xml  { render :xml => @requisitions }
-      end
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @requisitions }
     end
+  end
 
   # GET /requisitions/1
   # GET /requisitions/1.xml

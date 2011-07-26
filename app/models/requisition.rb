@@ -26,5 +26,5 @@ class Requisition < ActiveRecord::Base
   scope :mark_as_not_cleared, lambda{
     where("requisitions.reason_id > ?", 1)  
   }
-
+  
 end
