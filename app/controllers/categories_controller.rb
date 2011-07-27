@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_filter :find_category, :only=>[:show, :edit, :update, :destory]
   # GET /categories
   # GET /categories.xml
   def index
@@ -13,7 +14,6 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.xml
   def show
-    @category = Category.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +34,6 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1/edit
   def edit
-    @category = Category.find(params[:id])
   end
 
   # POST /categories
@@ -47,7 +46,7 @@ class CategoriesController < ApplicationController
         format.html { redirect_to(@category, :notice => 'Category was successfully created.') }
         format.xml  { render :xml => @category, :status => :created, :location => @category }
       else
-        format.html { render :action => "new" }
+        format.html { render "new" }
         format.xml  { render :xml => @category.errors, :status => :unprocessable_entity }
       end
     end
@@ -56,14 +55,13 @@ class CategoriesController < ApplicationController
   # PUT /categories/1
   # PUT /categories/1.xml
   def update
-    @category = Category.find(params[:id])
 
     respond_to do |format|
       if @category.update_attributes(params[:category])
         format.html { redirect_to(@category, :notice => 'Category was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render "edit" }
         format.xml  { render :xml => @category.errors, :status => :unprocessable_entity }
       end
     end
@@ -72,12 +70,14 @@ class CategoriesController < ApplicationController
   # DELETE /categories/1
   # DELETE /categories/1.xml
   def destroy
-    @category = Category.find(params[:id])
     @category.destroy
-
     respond_to do |format|
       format.html { redirect_to(categories_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def find_category
+    @category = Category.find(params[:id])
   end
 end

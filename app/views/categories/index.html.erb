@@ -11,7 +11,7 @@
 <% @categories.each do |category| %>
   <tr>
     <td><%= category.name %></td>
-   <% if current_user && current_user.is_admin %> 
+   <% if current_user && current_user.is_admin %>
     <td><%= link_to '編輯', edit_category_path(category) %></td>
     <td><%= link_to '刪除', category, :confirm => 'Are you sure?', :method => :delete %></td>
    <% end %>

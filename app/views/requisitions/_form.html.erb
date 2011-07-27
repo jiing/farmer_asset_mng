@@ -25,15 +25,15 @@
   </div>
   <div class="field">
     <%= f.label :reason_id, '調閱原因' %><%= mark_required(@requisition, :reason_id) %><br />
-    
+
     <%= select("requisition", "reason_id", Reason.all.collect {|r| [ r.content, r.id ] }) %>
-	
+
   </div>
   <div class="field">
     <%= f.label :borrower_id, '調閱人' %><%= mark_required(@requisition, :borrower_id) %><br />
     <select id="borrower_id", name="requisition[borrower_id]">
-	  <%= options_from_collection_for_select(Borrower.all, :id, :name, @selected)  %>
-	</select>
+    <%= options_from_collection_for_select(Borrower.all, :id, :name, @selected)  %>
+  </select>
   </div>
   <div class="field">
     <%= f.label :category_id, '分類' %><%= mark_required(@requisition, :category_id) %><br />
@@ -49,7 +49,7 @@
     <%= f.label :note,'備註' %><%= mark_required(@requisition, :note) %><br />
     <%= f.text_area :note %>
   </div>
-  
+
   <div class="actions">
     <%= f.submit %>
   </div>

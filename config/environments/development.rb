@@ -22,5 +22,16 @@ FarmerAssetMng::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.growl = false
+    Bullet.rails_logger = false
+    Bullet.disable_browser_cache = true
+  end
+
 end
 

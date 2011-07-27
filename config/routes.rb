@@ -7,7 +7,7 @@ FarmerAssetMng::Application.routes.draw do
   get "requisitions/mark_as_cleared"
   get "requisitions/mark_as_not_cleared"
   get "requisitions/all"
-  
+
   devise_for :users
 
   resources :borrowers

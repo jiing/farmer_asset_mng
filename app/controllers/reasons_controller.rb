@@ -1,5 +1,5 @@
 class ReasonsController < ApplicationController
-  
+  before_filter :find_reason, :only=>[:show, :edit, :update, :destroy]
   # GET /reasons
   # GET /reasons.xml
   def index
@@ -14,7 +14,6 @@ class ReasonsController < ApplicationController
   # GET /reasons/1
   # GET /reasons/1.xml
   def show
-    @reason = Reason.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -35,7 +34,6 @@ class ReasonsController < ApplicationController
 
   # GET /reasons/1/edit
   def edit
-    @reason = Reason.find(params[:id])
   end
 
   # POST /reasons
@@ -48,7 +46,7 @@ class ReasonsController < ApplicationController
         format.html { redirect_to(@reason, :notice => 'Reason was successfully created.') }
         format.xml  { render :xml => @reason, :status => :created, :location => @reason }
       else
-        format.html { render :action => "new" }
+        format.html { render "new" }
         format.xml  { render :xml => @reason.errors, :status => :unprocessable_entity }
       end
     end
@@ -57,14 +55,13 @@ class ReasonsController < ApplicationController
   # PUT /reasons/1
   # PUT /reasons/1.xml
   def update
-    @reason = Reason.find(params[:id])
 
     respond_to do |format|
       if @reason.update_attributes(params[:reason])
         format.html { redirect_to(@reason, :notice => 'Reason was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render "edit" }
         format.xml  { render :xml => @reason.errors, :status => :unprocessable_entity }
       end
     end
@@ -73,12 +70,15 @@ class ReasonsController < ApplicationController
   # DELETE /reasons/1
   # DELETE /reasons/1.xml
   def destroy
-    @reason = Reason.find(params[:id])
     @reason.destroy
 
     respond_to do |format|
       format.html { redirect_to(reasons_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def find_reason
+    @reason = Reason.find(params[:id])
   end
 end

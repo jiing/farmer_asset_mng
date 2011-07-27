@@ -1,4 +1,4 @@
-<h1>庫存清冊，目前共有<%= @requisitions.size %>件</h1>
+<h1>案卷清冊，目前共有<%= @requisitions.size %>件</h1>
 
 <table class="table">
   <tr>
@@ -20,9 +20,9 @@
     <td nowrap="nowrap"><%= requisition.req_id %></td>
     <td nowrap="nowrap"><%= requisition.account_name %></td>
     <td nowrap="nowrap"><%= requisition.borrowed_at.strftime('%Y/%m/%d') %></td>
-    <td nowrap="nowrap"><%= requisition.reason.content %></td>
-    <td nowrap="nowrap"><%= requisition.borrower.name %></td>
-    <td nowrap="nowrap"><%= requisition.category.name %></td>
+    <td nowrap="nowrap"><%= requisition.reason_content %></td>
+    <td nowrap="nowrap"><%= requisition.borrower_name %></td>
+    <td nowrap="nowrap"><%= requisition.category_name %></td>
     <td><%= check_box_tag "requisition[is_borrowed]", requisition.is_borrowed, requisition.is_borrowed, :readonly=> true %></td>
     <td><%= requisition.note %></td>
     <td><%= requisition.updated_at.strftime('%Y/%m/%d %l:%M%p') %></td>

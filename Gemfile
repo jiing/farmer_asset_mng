@@ -6,14 +6,13 @@ gem 'rails', '3.0.9'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'spork'
-gem 'rspec'
 gem 'devise'
-#gem 'will_paginate'
 gem 'kaminari'
-gem 'factory_girl'
 gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'breadcrumbs_on_rails'
 gem 'heroku'
+#gem 'will_paginate'
+#gem 'factory_girl'
 
 
 # Use unicorn as the web server
@@ -39,8 +38,16 @@ gem 'heroku'
 #   gem 'webrat'
 # end
 
+group :development do
+  gem 'bullet'
+  gem 'ruby-growl'   #has some issue in ruby 1.9
+end
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'rails-erd'
   gem 'web-app-theme', '>= 0.6.2'
+  #gem 'spork'
+  #gem 'rspec'
+  gem 'rails_best_practices'
 end
