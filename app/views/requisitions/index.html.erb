@@ -33,8 +33,11 @@
     <th class="first">調閱中?</th>
     <th class="first">備註</th>
     <th class="first">時間戳記</th>
-    <th class="first"></th>
-    <th class="first"></th>
+    <% if current_user && current_user.is_admin %>
+      <th class="first"></th>
+      <th class="first"></th>
+    <% end %>
+
   </tr>
 
 <% i = 0 %>

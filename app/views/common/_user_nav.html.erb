@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
 <li> 您好! <%= current_user.email %></li>
-   <li><%= link_to("登出", destroy_user_session_path, :method=>'delete', :class=>'logout')%></li>
+   <li><%= link_to("登出",  destroy_user_session_path, :method=>'delete', :class=>'logout')%></li>
   <% if current_user.is_admin? %>
   <li><%= link_to("管理介面", {:controller=>"admin", :action=>"index"} )%></li>
   <% end %>

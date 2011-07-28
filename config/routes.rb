@@ -1,4 +1,12 @@
 FarmerAssetMng::Application.routes.draw do
+  devise_for :users, :controllers => { :sessions => 'devise/sessions' }, :skip => [:sessions] do
+    get "/login" => "devise/sessions#new", :as => :new_user_session
+    post "/login" => "devise/sessions#create", :as => :user_session
+    get "/logout" => "devise/sessions#destroy", :as => :destroy_user_session
+    get "/register" => "devise/registrations#new", :as => :new_user_registration
+    post "/register" => "devise/registrations#create", :as => :user_registration
+  end
+
   get "admin/index"
   get "requisitions/in_stock"
   get "requisitions/not_in_stock"
@@ -7,8 +15,6 @@ FarmerAssetMng::Application.routes.draw do
   get "requisitions/mark_as_cleared"
   get "requisitions/mark_as_not_cleared"
   get "requisitions/all"
-
-  devise_for :users
 
   resources :borrowers
 

@@ -9,7 +9,6 @@ gem 'sqlite3'
 gem 'devise'
 gem 'kaminari'
 gem 'sqlite3-ruby', :require => 'sqlite3'
-gem 'breadcrumbs_on_rails'
 gem 'heroku'
 gem 'jquery-rails', '>= 1.0.12'
 
