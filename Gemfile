@@ -11,6 +11,8 @@ gem 'kaminari'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'breadcrumbs_on_rails'
 gem 'heroku'
+gem 'jquery-rails', '>= 1.0.12'
+
 #gem 'will_paginate'
 #gem 'factory_girl'
 

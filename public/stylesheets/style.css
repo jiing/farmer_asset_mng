@@ -4,12 +4,12 @@ h1, h2, h3 {color:#444}
 body {
   color: #222;
   background: #e5e5e5;
-  font-family: "Bitstream Vera Sans", verdana, sans-serif;  
-  
+  font-family: "Bitstream Vera Sans", verdana, sans-serif;
+
 }
 
 hr {
-  background: #f0f0ee; 
+  background: #f0f0ee;
 }
 
 p {
@@ -161,8 +161,13 @@ input.checkbox {
   border-bottom: 1px solid #F0F0EE;
 }
 
-.table tr td.d0 {
-	background-color: #FCF6CF;
+.table tr{
+  background-color: #FCF6CF;
+}
+
+
+.table tr.odd{
+  background-color: #FCFCFC;
 }
 
 /* forms */
@@ -226,18 +231,18 @@ ul.list li .left  {
 }
 
 div#footer div.block p{
-	vertical-align: middle;
-	text-align: right;
-	
+  vertical-align: middle;
+  text-align: right;
+
 }
 
 /* box */
 
 #box .block {
-  background: #FFF;  
+  background: #FFF;
 }
 
 #box .block h2 {
-  background: #48625B;  
+  background: #48625B;
   color: #FFF;
 }

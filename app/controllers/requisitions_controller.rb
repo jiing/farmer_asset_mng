@@ -8,13 +8,13 @@ class RequisitionsController < ApplicationController
       date = DateTime.now;
       unless params[:query][:year].blank?
         unless params[:query][:month] .blank?
-          date = DateTime.parse(params[:query][:year]+'-'+params[:query][:month]+'-'+"1")
+          date = DateTime.parse("#{params[:query][:year]}-#{params[:query][:month]}-1")
         else
-          date = DateTime.parse(params[:query][:year]+'-'+"12"+'-'+"1")
+          date = DateTime.parse("#{params[:query][:year]}-12-1")
         end
       else
         unless params[:query][:month].blank?
-          date = DateTime.parse(DateTime.now.year+'-'+params[:query][:month]+'-'+"1")
+          date = DateTime.parse("#{DateTime.now.year}-#{params[:query][:month]}-1")
         else
           date = DateTime.now
         end
